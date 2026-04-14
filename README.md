@@ -1,5 +1,7 @@
 # 2026 Avurudu Nekath Dashboard 🌞
 
+**Live App**: [https://nekath.samseen.dev/](https://nekath.samseen.dev/)
+
 A minimalist, responsive dashboard to track the upcoming Sinhala and Tamil New Year Nekath (Auspicious Times) for **2026**. 
 
 It provides real-time updates and an easily digestible timeline showing past, current, and upcoming significant events using a clean UI architecture.

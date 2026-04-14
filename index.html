@@ -112,17 +112,29 @@
                     <i data-lucide="info" class="w-4 h-4"></i> Schedule 2026
                 </h3>
                 
-                <div id="schedule-list" class="overflow-y-auto pr-2 custom-scrollbar flex-grow space-y-4">
+                <div id="schedule-list" class="overflow-y-auto px-2 -mx-2 pr-4 pb-4 custom-scrollbar flex-grow space-y-4">
                     <!-- Populated by JS -->
                 </div>
             </div>
 
         </div>
         
-        <!-- Debug Confetti Button (Floating) -->
-        <button id="debug-confetti" class="fixed bottom-4 right-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white/60 hover:text-white backdrop-blur-md rounded-full p-3 shadow-lg transition-all z-50 group" aria-label="Test Confetti" title="Test Confetti">
-            <i data-lucide="party-popper" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
-        </button>
+        <!-- Floating Actions -->
+        <div class="fixed bottom-4 right-4 flex items-center gap-3 z-50">
+            <!-- Debug Confetti Button -->
+            <button id="debug-confetti" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white/60 hover:text-white backdrop-blur-md rounded-full p-2.5 shadow-lg transition-all group" aria-label="Test Confetti" title="Test Confetti">
+                <i data-lucide="party-popper" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+            </button>
+
+            <!-- Buy Me A Coffee -->
+            <a href="https://buymeacoffee.com/samseen" target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white/60 hover:text-white backdrop-blur-md rounded-full p-2.5 shadow-lg transition-all group hover:scale-110" aria-label="Support Maker" title="Support Maker">
+                <i data-lucide="coffee" class="w-5 h-5 group-hover:text-yellow-300 transition-colors"></i>
+            </a>
+        </div>
+        <!-- Footer Text -->
+        <div class="relative z-10 w-full text-center pb-5 pt-2 text-white/40 text-xs md:text-sm font-medium tracking-wide">
+            Made with ❤️ by <a href="https://github.com/SamSeenX" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">SamSeen</a>
+        </div>
     </div>
 
     <!-- External Libraries -->

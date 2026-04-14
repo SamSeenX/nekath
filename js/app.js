@@ -53,12 +53,12 @@ function initScheduleList() {
             </div>
             <div class="flex-1 min-w-0 pt-1">
                 <div class="flex justify-between items-start mb-1">
-                    <h4 id="title-${nekath.id}" class="font-semibold truncate text-white/90">${nekath.title}</h4>
+                    <h4 id="title-${nekath.id}" class="font-semibold text-white/90 leading-tight">${nekath.title}</h4>
                 </div>
                 <div class="text-sm text-white/70 font-medium mb-1">
                     ${formatDate(new Date(nekath.time))} • ${formatTime(new Date(nekath.time))}
                 </div>
-                <div class="text-xs text-white/50 truncate">${nekath.desc}</div>
+                <div class="text-xs text-white/50 leading-relaxed">${nekath.desc}</div>
             </div>
         </div>
     `).join('');
@@ -179,21 +179,21 @@ function updateUI() {
         if (isNext) {
             card.className = "relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 bg-white/20 border border-white/40 shadow-lg scale-[1.02]";
             iconBg.className = "p-3 rounded-full shrink-0 bg-white text-gray-900 shadow-md";
-            title.className = "font-semibold truncate text-white";
+            title.className = "font-semibold text-white leading-tight";
             
             if (iconActive) iconActive.classList.remove('hidden');
             if (iconDone) iconDone.classList.add('hidden');
         } else if (isPast) {
             card.className = "relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 opacity-50 grayscale hover:grayscale-0 hover:opacity-100";
             iconBg.className = "p-3 rounded-full shrink-0 bg-white/10 text-white";
-            title.className = "font-semibold truncate text-white/90";
+            title.className = "font-semibold text-white/90 leading-tight";
             
             if (iconActive) iconActive.classList.add('hidden');
             if (iconDone) iconDone.classList.remove('hidden');
         } else {
             card.className = "relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 bg-white/5 border border-white/10 hover:bg-white/10";
             iconBg.className = "p-3 rounded-full shrink-0 bg-white/10 text-white";
-            title.className = "font-semibold truncate text-white/90";
+            title.className = "font-semibold text-white/90 leading-tight";
             
             if (iconActive) iconActive.classList.remove('hidden');
             if (iconDone) iconDone.classList.add('hidden');
