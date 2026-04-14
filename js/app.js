@@ -7,6 +7,36 @@
 const formatDate = (date) => date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 
+let lastNextNekathId = 'INITIAL';
+
+function triggerConfetti() {
+    if (window.confetti) {
+        const duration = 3000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+            window.confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+            });
+            window.confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    }
+}
+
 /**
  * Initialize the schedule list in the sidebar.
  */
@@ -67,6 +97,12 @@ function updateUI() {
     // Determine Next Nekath
     const futureNekaths = NEKATHS.filter(n => new Date(n.time) >= now);
     const nextNekath = futureNekaths.length > 0 ? futureNekaths[0] : null;
+    const currentNextId = nextNekath ? nextNekath.id : null;
+
+    if (lastNextNekathId !== 'INITIAL' && lastNextNekathId !== currentNextId) {
+        triggerConfetti();
+    }
+    lastNextNekathId = currentNextId;
 
     // DOM Elements for Hero
     const appContainer = document.getElementById('app-container');
@@ -170,8 +206,12 @@ function updateUI() {
 }
 
 // Bootstrap App
-document.addEventListener('DOMContentLoaded', () => {
-    initScheduleList();
-    updateUI(); // Run immediately
-    setInterval(updateUI, 1000); // Update every second
-});
+initScheduleList();
+updateUI(); // Run immediately
+setInterval(updateUI, 1000); // Update every second
+
+// Debug Confetti Listener
+const debugBtn = document.getElementById('debug-confetti');
+if (debugBtn) {
+    debugBtn.addEventListener('click', triggerConfetti);
+}
