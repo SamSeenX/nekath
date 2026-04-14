@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Avurudu Nekath</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="bg-slate-900 m-0 p-0 overflow-x-hidden">
+
+    <div id="app-container" class="min-h-screen md:h-screen md:overflow-hidden w-full flex flex-col text-white transition-all duration-1000 ease-in-out bg-gradient-to-br from-slate-800 to-slate-900">
+        
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+
+        <!-- Main Content -->
+        <div class="relative z-10 flex flex-col flex-grow w-full max-w-lg mx-auto md:max-w-5xl px-6 py-8 md:py-6 h-full md:flex-row md:items-center md:gap-12">
+            
+            <!-- Left Side: Hero & Countdown -->
+            <div class="flex-1 flex flex-col justify-center mb-8 md:mb-0 h-full py-4">
+                
+                <!-- Header -->
+                <div class="flex justify-between items-start mb-8 md:mb-4">
+                    <div>
+                        <div class="flex items-center gap-2 text-white/80 font-medium mb-1">
+                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <span>Sri Lanka</span>
+                        </div>
+                        <h2 id="current-date" class="text-xl font-semibold">--</h2>
+                        <p class="text-white/60 text-sm mt-1 flex items-center gap-1.5">
+                            <i data-lucide="clock" class="w-3.5 h-3.5"></i> Local Time: <span id="current-time">--</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Punya Kaalaya Banner -->
+                <div id="punya-banner" class="hidden items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 text-white px-4 py-2 rounded-full text-sm font-medium mb-8 md:mb-6 self-start animate-pulse shadow-lg">
+                    <i data-lucide="moon" class="w-4 h-4 text-yellow-200"></i>
+                    Punya Kaalaya is Active
+                </div>
+
+                <!-- Active Hero -->
+                <div id="hero-active" class="flex flex-col items-start hidden">
+                    <p class="text-white/70 uppercase tracking-widest text-xs font-bold mb-4 md:mb-2 flex items-center gap-2">
+                        Upcoming Nekatha
+                    </p>
+                    
+                    <div class="flex items-center gap-4 mb-4 md:mb-2">
+                        <div id="hero-icon-wrapper"></div>
+                        <h1 id="hero-title" class="text-4xl md:text-5xl font-bold leading-tight drop-shadow-md">
+                            --
+                        </h1>
+                    </div>
+
+                    <div id="countdown-timer" class="text-7xl md:text-[6rem] font-light tracking-tighter drop-shadow-lg tabular-nums my-4 md:my-2 leading-none">
+                        00:00:00
+                    </div>
+                    
+                    <p id="days-left" class="text-xl text-white/80 font-medium mb-4 md:mb-2 hidden">
+                        <!-- Populated by JS -->
+                    </p>
+
+                    <p id="hero-desc" class="text-lg text-white/90 max-w-md font-medium leading-relaxed bg-black/10 p-4 rounded-xl border border-white/10 shadow-inner">
+                        --
+                    </p>
+
+                    <!-- Details Grid -->
+                    <div class="grid grid-cols-2 gap-4 mt-8 md:mt-6 w-full max-w-md">
+                        <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 flex flex-col hover:bg-white/15 transition-colors">
+                            <div class="flex items-center gap-2 text-white/60 text-sm mb-2">
+                                <i data-lucide="palette" class="w-4 h-4"></i> Color
+                            </div>
+                            <div id="hero-color" class="text-xl font-semibold">--</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 flex flex-col hover:bg-white/15 transition-colors">
+                            <div class="flex items-center gap-2 text-white/60 text-sm mb-2">
+                                <i data-lucide="compass" class="w-4 h-4"></i> Direction
+                            </div>
+                            <div id="hero-direction" class="text-xl font-semibold">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Hero -->
+                <div id="hero-completed" class="flex flex-col items-center justify-center text-center py-20 hidden">
+                    <i data-lucide="check-circle-2" class="w-16 h-16 mb-4 text-emerald-400"></i>
+                    <h1 class="text-4xl font-bold mb-2">Avurudu Completed!</h1>
+                    <p class="text-white/70">Suba Aluth Avuruddak Wewa.</p>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Timeline List -->
+            <div class="flex-1 w-full bg-black/20 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden flex flex-col min-h-[80vh] md:min-h-0 md:h-[85vh]">
+                <h3 class="text-lg font-semibold mb-6 flex items-center gap-2 shrink-0">
+                    <i data-lucide="info" class="w-4 h-4"></i> Schedule 2026
+                </h3>
+                
+                <div id="schedule-list" class="overflow-y-auto pr-2 custom-scrollbar flex-grow space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Centralized Data for 2026 Avurudu Nekath
+        const NEKATHS = [
+            {
+                id: 'punya_start',
+                title: 'Punya Kaalaya Begins',
+                time: '2026-04-14T03:08:00+05:30',
+                icon: 'moon',
+                color: 'White / Light',
+                direction: 'Any',
+                desc: 'Cease all work and engage in religious activities.',
+                bg: 'from-slate-900 via-indigo-900 to-purple-900'
+            },
+            {
+                id: 'dawn',
+                title: 'Dawn of the New Year',
+                time: '2026-04-14T09:32:00+05:30',
+                icon: 'sun',
+                color: 'Green',
+                direction: 'South',
+                desc: 'The exact moment the sun enters Aries (Mesha).',
+                bg: 'from-orange-500 via-rose-500 to-purple-600'
+            },
+            {
+                id: 'cook',
+                title: 'Preparation of Meals',
+                time: '2026-04-14T10:51:00+05:30',
+                icon: 'flame',
+                color: 'Red',
+                direction: 'South',
+                desc: 'Light the hearth and prepare milk rice (Kiribath).',
+                bg: 'from-red-600 via-orange-500 to-amber-500'
+            },
+            {
+                id: 'eat_work',
+                title: 'Work, Transactions & Meals',
+                time: '2026-04-14T12:06:00+05:30',
+                icon: 'utensils',
+                color: 'Red',
+                direction: 'South',
+                desc: 'Commence work, perform Ganu-Denu, and partake in meals.',
+                bg: 'from-amber-400 via-orange-400 to-rose-400'
+            },
+            {
+                id: 'punya_end',
+                title: 'Punya Kaalaya Ends',
+                time: '2026-04-14T15:56:00+05:30',
+                icon: 'check-circle-2',
+                color: 'Neutral',
+                direction: 'Any',
+                desc: 'End of the inauspicious transition period.',
+                bg: 'from-blue-500 via-cyan-500 to-teal-400'
+            },
+            {
+                id: 'oil',
+                title: 'Anointing with Oil',
+                time: '2026-04-15T06:55:00+05:30',
+                icon: 'droplets',
+                color: 'Green',
+                direction: 'South',
+                desc: 'Apply herbal Nanu and oil for health and longevity.',
+                bg: 'from-emerald-500 via-teal-600 to-cyan-700'
+            },
+            {
+                id: 'work',
+                title: 'Leaving for Work',
+                time: '2026-04-20T06:27:00+05:30',
+                icon: 'briefcase',
+                color: 'White',
+                direction: 'South',
+                desc: 'Set off to resume professional duties and businesses.',
+                bg: 'from-sky-400 via-blue-500 to-indigo-600'
+            },
+            {
+                id: 'plant',
+                title: 'Planting Tree Saplings',
+                time: '2026-04-23T09:01:00+05:30',
+                icon: 'leaf',
+                color: 'Gold / Green',
+                direction: 'North',
+                desc: 'Plant a sapling for environmental prosperity.',
+                bg: 'from-green-500 via-emerald-600 to-teal-700'
+            }
+        ];
+
+        // Format Utilities
+        const formatDate = (date) => date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        const formatTime = (date) => date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+        // Initialize Schedule List HTML
+        function initScheduleList() {
+            const list = document.getElementById('schedule-list');
+            list.innerHTML = NEKATHS.map((nekath, index) => `
+                <div id="card-${nekath.id}" class="relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300">
+                    ${index !== NEKATHS.length - 1 ? `<div id="line-${nekath.id}" class="absolute left-9 top-14 bottom-[-24px] w-0.5"></div>` : ''}
+                    <div id="icon-bg-${nekath.id}" class="p-3 rounded-full shrink-0">
+                        <i data-lucide="${nekath.icon}" id="icon-active-${nekath.id}" class="w-5 h-5"></i>
+                        <i data-lucide="check-circle-2" id="icon-done-${nekath.id}" class="w-5 h-5 hidden"></i>
+                    </div>
+                    <div class="flex-1 min-w-0 pt-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 id="title-${nekath.id}" class="font-semibold truncate text-white/90">${nekath.title}</h4>
+                        </div>
+                        <div class="text-sm text-white/70 font-medium mb-1">
+                            ${formatDate(new Date(nekath.time))} • ${formatTime(new Date(nekath.time))}
+                        </div>
+                        <div class="text-xs text-white/50 truncate">${nekath.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Initialize lucide icons for static elements
+            lucide.createIcons();
+        }
+
+        // Main UI Update Loop
+        function updateUI() {
+            const now = new Date();
+            
+            // Update Header Date/Time
+            document.getElementById('current-date').innerText = formatDate(now);
+            document.getElementById('current-time').innerText = formatTime(now);
+
+            // Determine Punya Kaalaya
+            const isPunyaKaalayaActive = now >= new Date(NEKATHS[0].time) && now <= new Date(NEKATHS[4].time);
+            const punyaBanner = document.getElementById('punya-banner');
+            if (isPunyaKaalayaActive) {
+                punyaBanner.classList.remove('hidden');
+                punyaBanner.classList.add('inline-flex');
+            } else {
+                punyaBanner.classList.add('hidden');
+                punyaBanner.classList.remove('inline-flex');
+            }
+
+            // Determine Next Nekath
+            const futureNekaths = NEKATHS.filter(n => new Date(n.time) >= now);
+            const nextNekath = futureNekaths.length > 0 ? futureNekaths[0] : null;
+
+            // DOM Elements for Hero
+            const appContainer = document.getElementById('app-container');
+            const heroActive = document.getElementById('hero-active');
+            const heroCompleted = document.getElementById('hero-completed');
+
+            // Handle Hero Area updates
+            if (nextNekath) {
+                heroCompleted.classList.add('hidden');
+                heroActive.classList.remove('hidden');
+
+                // Update Background Class safely by replacing 'from-*', 'to-*', 'via-*'
+                appContainer.className = `min-h-screen md:h-screen md:overflow-hidden w-full flex flex-col text-white transition-all duration-1000 ease-in-out bg-gradient-to-br ${nextNekath.bg}`;
+
+                // Update text fields
+                document.getElementById('hero-title').innerText = nextNekath.title;
+                document.getElementById('hero-desc').innerText = nextNekath.desc;
+                document.getElementById('hero-color').innerText = nextNekath.color;
+                document.getElementById('hero-direction').innerText = nextNekath.direction;
+
+                // Update Icon dynamically
+                const iconWrapper = document.getElementById('hero-icon-wrapper');
+                if (iconWrapper.dataset.currentIcon !== nextNekath.icon) {
+                    iconWrapper.innerHTML = `<i data-lucide="${nextNekath.icon}" class="w-12 h-12 text-white drop-shadow-md"></i>`;
+                    lucide.createIcons({ root: iconWrapper });
+                    iconWrapper.dataset.currentIcon = nextNekath.icon;
+                }
+
+                // Calculate countdown
+                const diffMs = new Date(nextNekath.time).getTime() - now.getTime();
+                const daysLeft = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+                const m = Math.floor((diffMs / 1000 / 60) % 60);
+                const s = Math.floor((diffMs / 1000) % 60);
+                
+                const timeLeftStr = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                document.getElementById('countdown-timer').innerText = timeLeftStr;
+
+                const daysEl = document.getElementById('days-left');
+                if (daysLeft > 0) {
+                    daysEl.innerText = `+ ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'}`;
+                    daysEl.classList.remove('hidden');
+                } else {
+                    daysEl.classList.add('hidden');
+                }
+            } else {
+                // Avurudu Completed State
+                heroActive.classList.add('hidden');
+                heroCompleted.classList.remove('hidden');
+                appContainer.className = `min-h-screen md:h-screen md:overflow-hidden w-full flex flex-col text-white transition-all duration-1000 ease-in-out bg-gradient-to-br from-slate-800 to-slate-900`;
+            }
+
+            // Handle Schedule List Styles
+            NEKATHS.forEach(nekath => {
+                const isPast = new Date(nekath.time) < now;
+                const isNext = nextNekath && nekath.id === nextNekath.id;
+
+                const card = document.getElementById(`card-${nekath.id}`);
+                const iconBg = document.getElementById(`icon-bg-${nekath.id}`);
+                const title = document.getElementById(`title-${nekath.id}`);
+                const line = document.getElementById(`line-${nekath.id}`);
+                
+                const iconActive = document.getElementById(`icon-active-${nekath.id}`);
+                const iconDone = document.getElementById(`icon-done-${nekath.id}`);
+
+                if (isNext) {
+                    card.className = "relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 bg-white/20 border border-white/40 shadow-lg scale-[1.02]";
+                    iconBg.className = "p-3 rounded-full shrink-0 bg-white text-gray-900 shadow-md";
+                    title.className = "font-semibold truncate text-white";
+                    
+                    if (iconActive) iconActive.classList.remove('hidden');
+                    if (iconDone) iconDone.classList.add('hidden');
+                } else if (isPast) {
+                    card.className = "relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 opacity-50 grayscale hover:grayscale-0 hover:opacity-100";
+                    iconBg.className = "p-3 rounded-full shrink-0 bg-white/10 text-white";
+                    title.className = "font-semibold truncate text-white/90";
+                    
+                    if (iconActive) iconActive.classList.add('hidden');
+                    if (iconDone) iconDone.classList.remove('hidden');
+                } else {
+                    card.className = "relative flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 bg-white/5 border border-white/10 hover:bg-white/10";
+                    iconBg.className = "p-3 rounded-full shrink-0 bg-white/10 text-white";
+                    title.className = "font-semibold truncate text-white/90";
+                    
+                    if (iconActive) iconActive.classList.remove('hidden');
+                    if (iconDone) iconDone.classList.add('hidden');
+                }
+
+                if (line) {
+                    line.className = `absolute left-9 top-14 bottom-[-24px] w-0.5 ${isPast ? 'bg-white/20' : 'bg-white/10'}`;
+                }
+            });
+        }
+
+        // Bootstrap App
+        initScheduleList();
+        updateUI(); // Run immediately
+        setInterval(updateUI, 1000); // Update every second
+
+    </script>
+</body>
+</html>
