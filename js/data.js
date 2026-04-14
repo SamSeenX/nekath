@@ -33,7 +33,7 @@ const NEKATHS = [
   {
     id: "eat_work",
     title: "Work, Transactions & Meals",
-    time: "2026-04-14T12:06:00+05:30",
+    time: "2026-04-14T12:05:00+05:30",
     icon: "utensils",
     color: "Red",
     direction: "South",
@@ -53,7 +53,7 @@ const NEKATHS = [
   {
     id: "oil",
     title: "Anointing with Oil",
-    time: "2026-04-15T06:55:00+05:30",
+    time: "2026-04-15T06:54:00+05:30",
     icon: "droplets",
     color: "Green",
     direction: "South",
@@ -73,7 +73,7 @@ const NEKATHS = [
   {
     id: "plant",
     title: "Planting Tree Saplings",
-    time: "2026-04-23T09:01:00+05:30",
+    time: "2026-04-23T11:36:00+05:30",
     icon: "leaf",
     color: "Gold / Green",
     direction: "North",
